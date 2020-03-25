@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Drumkit in Vanila JS</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main class="button_box">
+            <section class="container">
+                <div class="keypress">
+                    <button class="keys" data-key = "65">
+                        <h3>A</h3>
+                        <p class="sound">CLAP</p>
+                    </button>
+                    <button class="keys" data-key = "83">
+                        <h3>S</h3>
+                        <p class="sound">HIHAT</p>
+                    </button>
+                    <button class="keys" data-key = "68">
+                        <h3>D</h3>
+                        <p class="sound">KICK</p>
+                    </button>
+                    <button class="keys" data-key = "70">
+                        <h3>F</h3>
+                        <p class="sound">OPENHAT</p>
+                    </button>
+                    <button class="keys" data-key = "71">
+                        <h3>G</h3>
+                        <p class="sound">BOOM</p>
+                    </button>
+                    <button class="keys" data-key = "72">
+                        <h3>H</h3>
+                        <p class="sound">RIDE</p>
+                    </button>
+                    <button class="keys" data-key = "74">
+                        <h3>J</h3>
+                        <p class="sound">SNARE</p>
+                    </button>
+                    <button class="keys" data-key = "75">
+                        <h3>K</h3>
+                        <p class="sound">TOM</p>
+                    </button>
+                    <button class="keys" data-key = "76">
+                        <h3>L</h3>
+                        <p class="sound">TINK</p>
+                    </button>
+                </div>
+            </section>
+            <audio src="assets/media/hihat-close.wav" data-key="83" ></audio>
+            <audio src="assets/media/kick.wav" data-key="68" ></audio>
+            <audio src="assets/media/clap.wav" data-key="65" ></audio>
+            <audio src="assets/media/hihat-open.wav" data-key="70" ></audio>
+            <audio src="assets/media/boom.wav" data-key="71" ></audio>
+            <audio src="assets/media/ride.wav" data-key="72" ></audio>
+            <audio src="assets/media/snare.wav" data-key="74" ></audio>
+            <audio src="assets/media/tom-high.wav" data-key="75" ></audio>
+            <audio src="assets/media/tom-mid.wav" data-key="76" ></audio>
+        </main>
+        <script>
+            window.addEventListener("keydown", function(e) {
+                let audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+                let key = document.querySelector(`.keys[data-key="${e.keyCode}"]`);
+                if(!audio) return;
+                audio.currentTime = 0;
+                audio.play();
+                key.classList.add("playing");
+            });
+
+            function removeTransition(e) {
+                if(e.propertyName !== "transform") return;
+                this.classList.remove("playing");
+            }
+
+
+
+            let totalKeys = document.querySelectorAll(".keys");
+            totalKeys.forEach(key => key.addEventListener("transitionend", removeTransition));
+        </script>
+        <script src="./script.js"></script>
+    </body>
+</html>
